@@ -3,7 +3,7 @@ name: Deploy Hugo site to Pages
 on:
   push:
     branches:
-      - main # Chạy mỗi khi có push lên nhánh main
+      - main 
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.128.0 # Phiên bản Hugo (nên dùng phiên bản mới)
+      hugo-version: '0.146.0'
     steps:
       - name: Install Hugo CLI
         run: |
