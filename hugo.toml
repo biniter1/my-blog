@@ -1,4 +1,4 @@
-baseURL = "https://your-github-username.github.io/" # SỬA LẠI SAU
+baseURL = "https://biniter1.github.io/my-blog/"
 languageCode = "vi-vn"
 title = "Blog cá nhân của tôi"
 theme = "PaperMod"
