@@ -1,0 +1,28 @@
+baseURL = "https://your-github-username.github.io/" # SỬA LẠI SAU
+languageCode = "vi-vn"
+title = "Blog cá nhân của tôi"
+theme = "PaperMod"
+
+[params]
+# Cấu hình cho theme PaperMod
+defaultTheme = "auto" # "light", "dark" hoặc "auto"
+ShowShareButtons = true
+ShowReadingTime = true
+ShowPostNavLinks = true
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Bài viết"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "about"
+    name = "Giới thiệu"
+    url = "/about/"
+    weight = 20
+  [[menu.main]]
+    identifier = "tags"
+    name = "Thẻ"
+    url = "/tags/"
+    weight = 30

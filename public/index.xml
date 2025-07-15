@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog cá nhân của tôi</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Blog cá nhân của tôi</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Tue, 15 Jul 2025 15:26:39 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Tue, 15 Jul 2025 15:26:39 +0700</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Chào Thế Giới</title>
+      <link>http://localhost:1313/posts/chao-the-gioi/</link>
+      <pubDate>Sun, 13 Jul 2025 17:30:00 +0700</pubDate>
+      <guid>http://localhost:1313/posts/chao-the-gioi/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Đây là bài viết đầu tiên trên blog Hugo của tôi!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Bạn có thể viết nội dung bằng &lt;em&gt;Markdown&lt;/em&gt; ở đây. Rất đơn giản và trực quan.&lt;/p&gt;
+&lt;h2 id=&#34;đây-là-một-tiêu-đề-phụ&#34;&gt;Đây là một tiêu đề phụ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Mục 1&lt;/li&gt;
+&lt;li&gt;Mục 2&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>
