@@ -6,8 +6,19 @@
     <description>Recent content on Blog cá nhân của tôi</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Tue, 15 Jul 2025 15:26:39 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 15 Jul 2025 15:50:35 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Giải Tích</title>
+      <link>http://localhost:1313/posts/giaitich/</link>
+      <pubDate>Tue, 15 Jul 2025 15:50:35 +0700</pubDate>
+      <guid>http://localhost:1313/posts/giaitich/</guid>
+      <description>&lt;p&gt;Chào các bạn!
+Môn giải tích là một môn thiên về tính toán logic và là môn học bắt buộc đối với mọi sinh viên khi vào trường. Nó rất giống toán cấp 3 và trên youtube có rất nhiều thầy cô chia sẻ về môn này.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Chúng ta hãy làm rõ những cột điểm số sau:&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;điểm-qua-trình&#34;&gt;Điểm qua trình&lt;/h2&gt;
+&lt;p&gt;Chiếm 20% tổng số điểm, bạn đừng xem thường nó đối với những bạn muốn đạt học bổng thì mình khuyên hãy xung phong làm bài, tích cực tham gia buổi học. Và 1 điều rất rất quan trọng đó là phải đi học đầy đủ. Hồi đó mình đi vắng 1 buổi thì điểm số của mình bị giảm 1 điểm còn 9d:(((&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/</link>

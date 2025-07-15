@@ -6,7 +6,31 @@
     <description>Recent content in Posts on Blog cá nhân của tôi</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Tue, 15 Jul 2025 15:50:35 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Giải Tích</title>
+      <link>http://localhost:1313/posts/giaitich/</link>
+      <pubDate>Tue, 15 Jul 2025 15:50:35 +0700</pubDate>
+      <guid>http://localhost:1313/posts/giaitich/</guid>
+      <description>&lt;p&gt;Chào các bạn!
+Môn giải tích là một môn thiên về tính toán logic và là môn học bắt buộc đối với mọi sinh viên khi vào trường. Nó rất giống toán cấp 3 và trên youtube có rất nhiều thầy cô chia sẻ về môn này.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Chúng ta hãy làm rõ những cột điểm số sau:&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;điểm-qua-trình&#34;&gt;Điểm qua trình&lt;/h2&gt;
+&lt;p&gt;Chiếm 20% tổng số điểm, bạn đừng xem thường nó đối với những bạn muốn đạt học bổng thì mình khuyên hãy xung phong làm bài, tích cực tham gia buổi học. Và 1 điều rất rất quan trọng đó là phải đi học đầy đủ. Hồi đó mình đi vắng 1 buổi thì điểm số của mình bị giảm 1 điểm còn 9d:(((&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Chào Thế Giới</title>
+      <link>http://localhost:1313/posts/chao-the-gioi/</link>
+      <pubDate>Sun, 13 Jul 2025 17:30:00 +0700</pubDate>
+      <guid>http://localhost:1313/posts/chao-the-gioi/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Đây là bài viết đầu tiên trên blog Hugo của tôi!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Bạn có thể viết nội dung bằng &lt;em&gt;Markdown&lt;/em&gt; ở đây. Rất đơn giản và trực quan.&lt;/p&gt;
+&lt;h2 id=&#34;đây-là-một-tiêu-đề-phụ&#34;&gt;Đây là một tiêu đề phụ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Mục 1&lt;/li&gt;
+&lt;li&gt;Mục 2&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
   </channel>
 </rss>
