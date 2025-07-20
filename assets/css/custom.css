@@ -1,0 +1,15 @@
+.text-blue {
+  color: #007bff; /* Một màu xanh dương đẹp */
+}
+
+.text-green {
+  color: #28a745; /* Màu xanh lá */
+}
+
+.text-red {
+  color: #dc3545; /* Màu đỏ */
+}
+
+.text-warning {
+  color: #ffc107; /* Màu vàng cảnh báo */
+}

@@ -1,7 +1,7 @@
-+++
-date = '2025-07-15T15:50:35+07:00'
-title = 'Giải Tích'
-+++
+---
+date : '2025-07-15T15:50:35+07:00'
+title : 'Giải Tích'
+---
 
 Chào các bạn! 
 Môn giải tích là một môn thiên về tính toán logic và là môn học bắt buộc đối với mọi sinh viên khi vào trường. Nó rất giống toán cấp 3 và trên youtube có rất nhiều thầy cô chia sẻ về môn này.  

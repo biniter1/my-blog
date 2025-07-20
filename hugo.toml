@@ -1,6 +1,6 @@
 baseURL = "https://biniter1.github.io/my-blog/"
 languageCode = "vi-vn"
-title = "Blog cá nhân của tôi"
+title = "Blog cá nhân của Sonbin"
 theme = "PaperMod"
 
 [params]

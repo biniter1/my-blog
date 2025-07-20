@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Blog cá nhân của tôi</title>
+    <title>Blog cá nhân của Sonbin</title>
     <link>http://localhost:1313/my-blog/</link>
-    <description>Recent content on Blog cá nhân của tôi</description>
+    <description>Recent content on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Tue, 15 Jul 2025 15:50:35 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 15 Jul 2025 21:28:38 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Đại số tuyến tính</title>
+      <link>http://localhost:1313/my-blog/posts/dstt/</link>
+      <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/dstt/</guid>
+      <description>&lt;p&gt;Chào các bạn, dưới đây là cấu trúc điểm của môn này:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm quá trình&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm giữa kỳ&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm cuối kỳ&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.6&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Môn này theo mình nhận thấy thì không khó lắm vì căn bản trường mình đối với các môn toán như này đã giảm nhẹ phần nào.&lt;br&gt;
+Môn này ta sẽ phải học, ghi nhớ các công thức. Kể cả kỳ thi giữa kỳ và cuối kỳ chỉ cần các bạn học kỹ các công thức thì 10 điểm là chuyện trong tầm tay.&lt;br&gt;
+Đối với điểm quá trình các bạn nên đi học đầy đủ và phải &lt;strong&gt;xung phong lên bảng giải bài&lt;/strong&gt; để đảm bảo điểm quá trình bạn được 10.&lt;br&gt;
+Đối với nơi học môn này thì mình thấy trên youtube có rất nhiều người hướng dẫn như cô Giang Lê chẳng hạn.
+Chúc bạn đạt điểm cao môn này ngen.&lt;br&gt;
+👉 &lt;a href=&#34;https://drive.google.com/drive/folders/1Chme-q26taBUtvmE_7TrQiYmC1U0KQCl&#34;&gt;📁 Xem thư mục Google Drive tại đây&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Giải Tích</title>
       <link>http://localhost:1313/my-blog/posts/giaitich/</link>
@@ -24,7 +53,14 @@ Môn giải tích là một môn thiên về tính toán logic và là môn họ
       <link>http://localhost:1313/my-blog/about/</link>
       <pubDate>Tue, 15 Jul 2025 15:26:39 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/about/</guid>
-      <description></description>
+      <description>&lt;p&gt;&lt;strong&gt;My name:&lt;/strong&gt; Hà Sơn Bin&lt;br&gt;
+&lt;strong&gt;Đang học tại trường Đại học Công nghệ Thông tin UIT- Đại học Quốc gia TP.HCM&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;Chuyên ngành:&lt;/strong&gt; ATTT-Cyber security&lt;br&gt;
+&lt;strong&gt;My facebook:&lt;/strong&gt; &lt;a href=&#34;https://www.facebook.com/son.bin.ha.2025&#34;&gt;Facebook&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;My channel:&lt;/strong&gt; &lt;a href=&#34;https://www.youtube.com/@binzofficialentertainment5910&#34;&gt;Youtube&lt;/a&gt;&lt;br&gt;
+&lt;strong&gt;Contact for work:&lt;/strong&gt; &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;mailto:hasonbin123@gmail.com&#34;&gt;hasonbin123@gmail.com&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h1 id=&#34;about-this-site&#34;&gt;About this site&lt;/h1&gt;
+&lt;p&gt;This is  where i can share any knowledge about lectures at UIT and share my personal project. I hope it usefull for you . If you have any question, please contact me. I will try to answer as soon as possible.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Chào Thế Giới</title>
