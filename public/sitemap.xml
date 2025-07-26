@@ -11,13 +11,22 @@
     <loc>http://localhost:1313/my-blog/tags/ceh/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/my-blog/tags/cisco/</loc>
+    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/my-blog/tags/hacking/</loc>
+    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/projects/layer_acttacks/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/my-blog/tags/layer_acttacks/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/my-blog/projects/layer_acttacks/</loc>
+    <loc>http://localhost:1313/my-blog/tags/mac-flooding/</loc>
+    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/port-security/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/my-blog/projects/</loc>

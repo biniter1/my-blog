@@ -1,10 +1,16 @@
 ---
 date : '2025-07-26T20:19:31+07:00'
-title : 'Layer2_Acttacks'
-tags : ['Layer_Acttacks','Attack','Projects','Hacking','CEH']
+title : 'Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding'
+description: "Một hướng dẫn từng bước để cấu hình Port Security trên switch Cisco, giúp ngăn chặn hiệu quả tấn công làm tràn bảng CAM (MAC Flooding)."
+keyword: "Port Security, MAC Flopping, Switch Cisco"
+tags : ['Layer_Acttacks','Attack','Projects','Hacking','CEH','Cisco', 'Port Security', 'MAC Flooding']
+cover:
+    image: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200420233139/MAC_ADDRESS.png"
+    alt: "MAC security"
+    hiddenInList: false
+---
 ---
 
-# Tấn Công Layer 2: Hiểu và Phòng Chống Các Cuộc Tấn Công MAC
 Chào tất cả mọi người cảm ơn mọi người đã dành thời gian đọc blog này!
 Trong bài viết này, chúng ta sẽ khám phá các cuộc tấn công Layer 2, cách chúng hoạt động và phòng chống
 ## Phần 1: Các khái niệm  

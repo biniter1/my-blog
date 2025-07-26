@@ -1,8 +1,16 @@
 ---
 date : '2025-07-15T21:28:38+07:00'
 title : 'Đại số tuyến tính'
+description : 'Đại số tuyến tính là một lĩnh vực toán học nghiên cứu về các phương trình tuyến'
+keyword : 'Đại số tuyến tính'
 tags: ['Đại cương','UIT','DSTT']
+cover:
+    image: "https://vietbooks.info/attachments/upload_2022-9-3_22-22-42-png.14547"
+    alt: "Đại số tuyến tính"
+    hiddenInList: false
 ---
+---
+
 Chào các bạn, dưới đây là cấu trúc điểm của môn này:
 |Điểm quá trình|Điểm giữa kỳ|Điểm cuối kỳ|
 |:------------:|:----------:|:----------:|

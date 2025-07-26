@@ -23,6 +23,13 @@
       <description></description>
     </item>
     <item>
+      <title>Cisco</title>
+      <link>http://localhost:1313/my-blog/tags/cisco/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/cisco/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Hacking</title>
       <link>http://localhost:1313/my-blog/tags/hacking/</link>
       <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
@@ -34,6 +41,20 @@
       <link>http://localhost:1313/my-blog/tags/layer_acttacks/</link>
       <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/tags/layer_acttacks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MAC Flooding</title>
+      <link>http://localhost:1313/my-blog/tags/mac-flooding/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/mac-flooding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Port Security</title>
+      <link>http://localhost:1313/my-blog/tags/port-security/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/port-security/</guid>
       <description></description>
     </item>
     <item>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>CEH on Blog cá nhân của Sonbin</title>
-    <link>http://localhost:1313/my-blog/tags/ceh/</link>
-    <description>Recent content in CEH on Blog cá nhân của Sonbin</description>
+    <title>Cisco on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/cisco/</link>
+    <description>Recent content in Cisco on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
     <lastBuildDate>Sat, 26 Jul 2025 20:19:31 +0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/my-blog/tags/ceh/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/my-blog/tags/cisco/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding</title>
       <link>http://localhost:1313/my-blog/projects/layer_acttacks/</link>

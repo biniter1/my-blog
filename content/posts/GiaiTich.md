@@ -1,7 +1,14 @@
 ---
 date : '2025-07-15T15:50:35+07:00'
 title : 'Giải Tích'
-tags : ['Giải Tích','Đại cương','UIT'] 
+description: 'Giải tích là một lĩnh vực toán học nghiên cứu về tính chất và ứng dụng của các'
+keyword : 'Giải tích'
+tags : ['Giải Tích','Đại cương','UIT']
+cover:
+    image: "https://www.uit.edu.vn/sites/vi/files/image_from_word/tquan.jpg"
+    alt: "Giải tích"
+    hiddenInList: false
+---
 ---
 
 Chào các bạn! 

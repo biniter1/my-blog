@@ -9,18 +9,11 @@
     <lastBuildDate>Sat, 26 Jul 2025 20:19:31 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Layer2_Acttacks</title>
+      <title>Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding</title>
       <link>http://localhost:1313/my-blog/projects/layer_acttacks/</link>
       <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/projects/layer_acttacks/</guid>
-      <description>&lt;h1 id=&#34;tấn-công-layer-2-hiểu-và-phòng-chống-các-cuộc-tấn-công-mac&#34;&gt;Tấn Công Layer 2: Hiểu và Phòng Chống Các Cuộc Tấn Công MAC&lt;/h1&gt;
-&lt;p&gt;Chào tất cả mọi người cảm ơn mọi người đã dành thời gian đọc blog này!
-Trong bài viết này, chúng ta sẽ khám phá các cuộc tấn công Layer 2, cách chúng hoạt động và phòng chống&lt;/p&gt;
-&lt;h2 id=&#34;phần-1-các-khái-niệm&#34;&gt;Phần 1: Các khái niệm&lt;/h2&gt;
-&lt;p&gt;Trước khi đi vào tìm hiểu thì chúng ta sẽ làm rõ Layer 2-Tầng Data link là gì?&lt;br&gt;
-Mỗi thiết bị vật lý đều có một địa chỉ được gắn vào NIC (Network Interface Card) của nó, địa chỉ này được gọi là MAC (Media Access Control) địa chỉ.
-&lt;img alt=&#34;MAC&#34; loading=&#34;lazy&#34; src=&#34;https://www.ipxo.com/app/uploads/2022/05/MAC-address-min.png&#34;&gt;
-Thì địa chỉ MAC gồm hai phân đoạn:&lt;/p&gt;</description>
+      <description>Một hướng dẫn từng bước để cấu hình Port Security trên switch Cisco, giúp ngăn chặn hiệu quả tấn công làm tràn bảng CAM (MAC Flooding).</description>
     </item>
     <item>
       <title>Port Scan</title>
@@ -35,54 +28,29 @@ Thì địa chỉ MAC gồm hai phân đoạn:&lt;/p&gt;</description>
       <link>http://localhost:1313/my-blog/posts/dstt/</link>
       <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/posts/dstt/</guid>
-      <description>&lt;p&gt;Chào các bạn, dưới đây là cấu trúc điểm của môn này:&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;Điểm quá trình&lt;/th&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;Điểm giữa kỳ&lt;/th&gt;
-          &lt;th style=&#34;text-align: center&#34;&gt;Điểm cuối kỳ&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
-          &lt;td style=&#34;text-align: center&#34;&gt;0.6&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;Môn này theo mình nhận thấy thì không khó lắm vì căn bản trường mình đối với các môn toán như này đã giảm nhẹ phần nào.&lt;br&gt;
-Môn này ta sẽ phải học, ghi nhớ các công thức. Kể cả kỳ thi giữa kỳ và cuối kỳ chỉ cần các bạn học kỹ các công thức thì 10 điểm là chuyện trong tầm tay.&lt;br&gt;
-Đối với điểm quá trình các bạn nên đi học đầy đủ và phải &lt;strong&gt;xung phong lên bảng giải bài&lt;/strong&gt; để đảm bảo điểm quá trình bạn được 10.&lt;br&gt;
-Đối với nơi học môn này thì mình thấy trên youtube có rất nhiều người hướng dẫn như cô Giang Lê chẳng hạn.
-Chúc bạn đạt điểm cao môn này ngen.&lt;br&gt;
-👉 &lt;a href=&#34;https://drive.google.com/drive/folders/1Chme-q26taBUtvmE_7TrQiYmC1U0KQCl&#34;&gt;📁 Xem thư mục Google Drive tại đây&lt;/a&gt;&lt;/p&gt;</description>
+      <description>Đại số tuyến tính là một lĩnh vực toán học nghiên cứu về các phương trình tuyến</description>
     </item>
     <item>
       <title>Giải Tích</title>
       <link>http://localhost:1313/my-blog/posts/giaitich/</link>
       <pubDate>Tue, 15 Jul 2025 15:50:35 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/posts/giaitich/</guid>
-      <description>&lt;p&gt;Chào các bạn!
-Môn giải tích là một môn thiên về tính toán logic và là môn học bắt buộc đối với mọi sinh viên khi vào trường. Nó rất giống toán cấp 3 và trên youtube có rất nhiều thầy cô chia sẻ về môn này.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Chúng ta hãy làm rõ những cột điểm số sau:&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;điểm-qua-trình&#34;&gt;Điểm qua trình&lt;/h2&gt;
-&lt;p&gt;Chiếm 20% tổng số điểm, bạn đừng xem thường nó đối với những bạn muốn đạt học bổng thì mình khuyên hãy xung phong làm bài, tích cực tham gia buổi học. Và 1 điều rất rất quan trọng đó là phải đi học đầy đủ. Hồi đó mình đi vắng 1 buổi thì điểm số của mình bị giảm 1 điểm còn 9d:(((&lt;/p&gt;</description>
+      <description>Giải tích là một lĩnh vực toán học nghiên cứu về tính chất và ứng dụng của các</description>
     </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/my-blog/about/</link>
       <pubDate>Tue, 15 Jul 2025 15:26:39 +0700</pubDate>
       <guid>http://localhost:1313/my-blog/about/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;My name:&lt;/strong&gt; Hà Sơn Bin&lt;br&gt;
-&lt;strong&gt;Đang học tại trường Đại học Công nghệ Thông tin UIT- Đại học Quốc gia TP.HCM&lt;/strong&gt;&lt;br&gt;
-&lt;strong&gt;Chuyên ngành:&lt;/strong&gt; ATTT-Cyber security&lt;br&gt;
-&lt;strong&gt;My facebook:&lt;/strong&gt; &lt;a href=&#34;https://www.facebook.com/son.bin.ha.2025&#34;&gt;Facebook&lt;/a&gt;&lt;br&gt;
-&lt;strong&gt;My channel:&lt;/strong&gt; &lt;a href=&#34;https://www.youtube.com/@binzofficialentertainment5910&#34;&gt;Youtube&lt;/a&gt;&lt;br&gt;
-&lt;strong&gt;Contact for work:&lt;/strong&gt; &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;mailto:hasonbin123@gmail.com&#34;&gt;hasonbin123@gmail.com&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;h1 id=&#34;about-this-site&#34;&gt;About this site&lt;/h1&gt;
-&lt;p&gt;This is  where i can share any knowledge about lectures at UIT and share my personal project. I hope it usefull for you . If you have any question, please contact me. I will try to answer as soon as possible.&lt;/p&gt;</description>
+      <description>&lt;div class=&#34;about-container&#34;&gt;
+    &lt;div class=&#34;profile-pic&#34;&gt;
+        &lt;img src=&#34;https://i.postimg.cc/jjJh2CHN/avatar.jpg&#34; alt=&#34;Ảnh đại diện Hà Sơn Bin&#34;&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;profile-text&#34;&gt;
+        &lt;h2&gt;Chào bạn, mình là Hà Sơn Bin!&lt;/h2&gt;
+        &lt;p&gt;
+            Hiện tại, mình đang là sinh viên chuyên ngành &lt;strong&gt;An toàn Thông tin&lt;/strong&gt; tại trường &lt;strong&gt;Đại học Công nghệ Thông tin (UIT)&lt;/strong&gt; - ĐHQG TP.HCM. Với niềm đam mê khám phá các lỗ hổng và xây dựng những hệ thống vững chắc, mình đã tạo ra blog này để chia sẻ những kiến thức mình học được cũng như các dự án cá nhân tâm đắc.
+        &lt;/p&gt;</description>
     </item>
     <item>
       <title>Chào Thế Giới</title>

@@ -1,0 +1,44 @@
+/* Styling cho thumbnail trong list posts */
+.entry-cover {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.entry-cover img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.entry-cover:hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .entry-cover img {
+    height: 150px;
+  }
+}
+
+/* Layout dạng grid cho posts (tùy chọn) */
+.main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Styling cho post entry với thumbnail */
+.post-entry {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--entry);
+  transition: box-shadow 0.3s ease;
+}
+
+.post-entry:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
