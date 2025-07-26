@@ -13,3 +13,6 @@
 .text-warning {
   color: #ffc107; /* Màu vàng cảnh báo */
 }
+.center-text {
+  text-align: center;
+}

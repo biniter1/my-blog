@@ -6,6 +6,77 @@
     <description>Recent content in Tags on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
+    <lastBuildDate>Sat, 26 Jul 2025 20:19:31 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Attack</title>
+      <link>http://localhost:1313/my-blog/tags/attack/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/attack/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CEH</title>
+      <link>http://localhost:1313/my-blog/tags/ceh/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/ceh/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hacking</title>
+      <link>http://localhost:1313/my-blog/tags/hacking/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/hacking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Layer_Acttacks</title>
+      <link>http://localhost:1313/my-blog/tags/layer_acttacks/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/layer_acttacks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>http://localhost:1313/my-blog/tags/projects/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/projects/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Port Scan</title>
+      <link>http://localhost:1313/my-blog/tags/port-scan/</link>
+      <pubDate>Sun, 20 Jul 2025 16:49:21 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/port-scan/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Đại Cương</title>
+      <link>http://localhost:1313/my-blog/tags/%C4%91%E1%BA%A1i-c%C6%B0%C6%A1ng/</link>
+      <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/%C4%91%E1%BA%A1i-c%C6%B0%C6%A1ng/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DSTT</title>
+      <link>http://localhost:1313/my-blog/tags/dstt/</link>
+      <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/dstt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>UIT</title>
+      <link>http://localhost:1313/my-blog/tags/uit/</link>
+      <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/uit/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Giải Tích</title>
+      <link>http://localhost:1313/my-blog/tags/gi%E1%BA%A3i-t%C3%ADch/</link>
+      <pubDate>Tue, 15 Jul 2025 15:50:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/gi%E1%BA%A3i-t%C3%ADch/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

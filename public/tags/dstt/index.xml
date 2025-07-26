@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DSTT on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/dstt/</link>
+    <description>Recent content in DSTT on Blog cá nhân của Sonbin</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Tue, 15 Jul 2025 21:28:38 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/my-blog/tags/dstt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Đại số tuyến tính</title>
+      <link>http://localhost:1313/my-blog/posts/dstt/</link>
+      <pubDate>Tue, 15 Jul 2025 21:28:38 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/dstt/</guid>
+      <description>&lt;p&gt;Chào các bạn, dưới đây là cấu trúc điểm của môn này:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm quá trình&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm giữa kỳ&lt;/th&gt;
+          &lt;th style=&#34;text-align: center&#34;&gt;Điểm cuối kỳ&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.2&lt;/td&gt;
+          &lt;td style=&#34;text-align: center&#34;&gt;0.6&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Môn này theo mình nhận thấy thì không khó lắm vì căn bản trường mình đối với các môn toán như này đã giảm nhẹ phần nào.&lt;br&gt;
+Môn này ta sẽ phải học, ghi nhớ các công thức. Kể cả kỳ thi giữa kỳ và cuối kỳ chỉ cần các bạn học kỹ các công thức thì 10 điểm là chuyện trong tầm tay.&lt;br&gt;
+Đối với điểm quá trình các bạn nên đi học đầy đủ và phải &lt;strong&gt;xung phong lên bảng giải bài&lt;/strong&gt; để đảm bảo điểm quá trình bạn được 10.&lt;br&gt;
+Đối với nơi học môn này thì mình thấy trên youtube có rất nhiều người hướng dẫn như cô Giang Lê chẳng hạn.
+Chúc bạn đạt điểm cao môn này ngen.&lt;br&gt;
+👉 &lt;a href=&#34;https://drive.google.com/drive/folders/1Chme-q26taBUtvmE_7TrQiYmC1U0KQCl&#34;&gt;📁 Xem thư mục Google Drive tại đây&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Layer_Acttacks on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/layer_acttacks/</link>
+    <description>Recent content in Layer_Acttacks on Blog cá nhân của Sonbin</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Sat, 26 Jul 2025 20:19:31 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/my-blog/tags/layer_acttacks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Layer_Acttacks</title>
+      <link>http://localhost:1313/my-blog/projects/layer_acttacks/</link>
+      <pubDate>Sat, 26 Jul 2025 20:19:31 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/projects/layer_acttacks/</guid>
+      <description>&lt;h1 id=&#34;tấn-công-layer-2-hiểu-và-phòng-chống-các-cuộc-tấn-công-mac&#34;&gt;Tấn Công Layer 2: Hiểu và Phòng Chống Các Cuộc Tấn Công MAC&lt;/h1&gt;
+&lt;p&gt;Chào tất cả mọi người cảm ơn mọi người đã dành thời gian đọc blog này!
+Trong bài viết này, chúng ta sẽ khám phá các cuộc tấn công Layer 2, cách chúng hoạt động và phòng chống&lt;/p&gt;
+&lt;p&gt;Trước khi đi vào tìm hiểu thì chúng ta sẽ làm rõ Layer 2-Tầng Data link là gì?&lt;br&gt;
+Mỗi thiết bị vật lý đều có một địa chỉ được gắn vào NIC (Network Interface Card) của nó, địa chỉ này được gọi là MAC (Media Access Control) địa chỉ.
+&lt;img alt=&#34;MAC&#34; loading=&#34;lazy&#34; src=&#34;https://www.ipxo.com/app/uploads/2022/05/MAC-address-min.png&#34;&gt;
+Thì địa chỉ MAC gồm hai phân đoạn:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

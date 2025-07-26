@@ -22,6 +22,11 @@ ShowPostNavLinks = true
     url = "/about/"
     weight = 20
   [[menu.main]]
+    identifier= "projects"
+    name =" Personal Project"
+    url= "/projects/"
+    weight=25
+  [[menu.main]]
     identifier = "tags"
     name = "Thẻ"
     url = "/tags/"

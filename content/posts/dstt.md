@@ -1,6 +1,7 @@
 ---
 date : '2025-07-15T21:28:38+07:00'
 title : 'Đại số tuyến tính'
+tags: ['Đại cương','UIT','DSTT']
 ---
 Chào các bạn, dưới đây là cấu trúc điểm của môn này:
 |Điểm quá trình|Điểm giữa kỳ|Điểm cuối kỳ|
