@@ -33,7 +33,7 @@ Như đã nói ở trên bảng CAM sẽ lưu lại địa chỉ mỗi khi một
 Đây là một cuộc tấn công attacker sẽ chen chân vào giữa đường truyền.
 ![MAC Spoofing](https://www.securew2.com/wp-content/uploads/2023/05/mac_spoofing-1024x310.png)
 Chúng sẽ gửi một gói tin đến máy nạn nhận bảo tôi là **gateway của bạn** xong lại gửi 1 gói tin cho gateway bảo **tôi là máy A(victim)** vậy từ giờ khi máy A gửi gói tin đi đều đi trung gian qua máy attacker.  
-Vậy chúng có thể sửa thay đổi làm bất kỳ chúng muốn. 
+Vậy chúng có thể sửa thay đổi làm bất kỳ chúng muốn.   
 **Một dạng tấn công khác**: chúng giả dạng làm máy nạn nhận khiến switch không biết máy nào là thật gây xung đột.
 
 ## Phần 3: Phòng chống 
@@ -65,7 +65,7 @@ exit
 ```
 ### 2. Chống Giả mạo và Đầu độc ARP với DAI & DHCP Snooping
 - **DAI (Dynamic ARP Inspection)**: Chặn các gói tin ARP giả mạo.
-```
+```Cisco CLI
 ! Bật DAI trên các VLAN tương ứng
 ip arp inspection vlan 10,20
 
@@ -82,7 +82,7 @@ exit
 ! gói tin đó sẽ bị hủy bỏ.
 ```
 - **DHCP Snooping**: Chặn các gói tin DHCP giả mạo.
-```
+```Cisco CLI
 ! Bật DHCP Snooping trên toàn bộ switch
 ip dhcp snooping
 
