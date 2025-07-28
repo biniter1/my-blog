@@ -2,10 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/my-blog/tags/attack/</loc>
-    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
+    <loc>http://localhost:1313/my-blog/tags/_request/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/my-blog/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/error/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/l%E1%BB%97i-logic/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/projects/error_resetpass/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/projects/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/reset-password/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/</loc>
+    <lastmod>2025-07-28T20:23:35+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/my-blog/tags/attack/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/my-blog/tags/ceh/</loc>
@@ -29,13 +50,7 @@
     <loc>http://localhost:1313/my-blog/tags/port-security/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/my-blog/projects/</loc>
-    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/my-blog/tags/projects/</loc>
-    <lastmod>2025-07-26T20:19:31+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/my-blog/tags/</loc>
     <lastmod>2025-07-26T20:19:31+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/my-blog/projects/port_scan/</loc>

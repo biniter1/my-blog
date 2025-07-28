@@ -6,8 +6,36 @@
     <description>Recent content in Tags on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Sat, 26 Jul 2025 20:19:31 +0700</lastBuildDate>
+    <lastBuildDate>Mon, 28 Jul 2025 20:23:35 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>$_REQUEST</title>
+      <link>http://localhost:1313/my-blog/tags/_request/</link>
+      <pubDate>Mon, 28 Jul 2025 20:23:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/_request/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Error</title>
+      <link>http://localhost:1313/my-blog/tags/error/</link>
+      <pubDate>Mon, 28 Jul 2025 20:23:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/error/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lỗi Logic</title>
+      <link>http://localhost:1313/my-blog/tags/l%E1%BB%97i-logic/</link>
+      <pubDate>Mon, 28 Jul 2025 20:23:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/l%E1%BB%97i-logic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reset Password</title>
+      <link>http://localhost:1313/my-blog/tags/reset-password/</link>
+      <pubDate>Mon, 28 Jul 2025 20:23:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/reset-password/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Attack</title>
       <link>http://localhost:1313/my-blog/tags/attack/</link>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Reset Password on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/reset-password/</link>
+    <description>Recent content in Reset Password on Blog cá nhân của Sonbin</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Mon, 28 Jul 2025 20:23:35 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/my-blog/tags/reset-password/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lỗi Logic Chết Người Trong Chức Năng Reset Password: Khi $_REQUEST Phản Bội</title>
+      <link>http://localhost:1313/my-blog/projects/error_resetpass/</link>
+      <pubDate>Mon, 28 Jul 2025 20:23:35 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/projects/error_resetpass/</guid>
+      <description>Lỗi logic chết người trong chức năng reset password: Khi $_REQUEST phản bội</description>
+    </item>
+  </channel>
+</rss>
