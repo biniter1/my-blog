@@ -9,6 +9,7 @@ defaultTheme = "auto" # "light", "dark" hoặc "auto"
 ShowShareButtons = true
 ShowReadingTime = true
 ShowPostNavLinks = true
+disableSpecial1stPost = true
 
 [markup.goldmark.renderer]
   unsafe = true
