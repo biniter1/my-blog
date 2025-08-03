@@ -26,6 +26,7 @@ title : 'About'
     <span class="skill-tag">Python</span>
     <span class="skill-tag">Linux</span>
     <span class="skill-tag">C/C++</span>
+    <span class="skill-tag">Burp Suite</span>
     </div>
 
 <h3>Về trang web này</h3>

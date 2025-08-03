@@ -6,8 +6,15 @@
     <description>Recent content on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Mon, 28 Jul 2025 20:23:35 +0700</lastBuildDate>
+    <lastBuildDate>Sun, 03 Aug 2025 09:47:01 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QTM</title>
+      <link>http://localhost:1313/my-blog/posts/qtm/</link>
+      <pubDate>Sun, 03 Aug 2025 09:47:01 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/qtm/</guid>
+      <description>Quản trị mạng &amp;amp; Hệ thống UIT</description>
+    </item>
     <item>
       <title>Lỗi Logic Chết Người Trong Chức Năng Reset Password: Khi $_REQUEST Phản Bội</title>
       <link>http://localhost:1313/my-blog/projects/error_resetpass/</link>
