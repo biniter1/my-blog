@@ -27,6 +27,7 @@ title : 'About'
     <span class="skill-tag">Linux</span>
     <span class="skill-tag">C/C++</span>
     <span class="skill-tag">Burp Suite</span>
+    <span class="skill-tag">Metasploit</span>
     </div>
 
 <h3>Về trang web này</h3>
