@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding | Blog cá nhân của Sonbin</title>
-<meta name="keywords" content="Layer_Acttacks, Attack, Projects, Hacking, CEH, Cisco, Port Security, MAC Flooding">
-<meta name="description" content="Một hướng dẫn từng bước để cấu hình Port Security trên switch Cisco, giúp ngăn chặn hiệu quả tấn công làm tràn bảng CAM (MAC Flooding).">
+<title>Lập trình ứng dụng Web | Blog cá nhân của Sonbin</title>
+<meta name="keywords" content="UIT, Môn cơ sở, ATTT, WEB">
+<meta name="description" content="Lập trình ứng dụng web tại UIT">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/my-blog/projects/layer_acttacks/">
+<link rel="canonical" href="http://localhost:1313/my-blog/posts/lap-trinh-ung-dung-web/">
 <link crossorigin="anonymous" href="/my-blog/assets/css/stylesheet.f04dbd6282aa30e2d6a34ec816acaf2ad41775d81fecbdecd0ae59e048b37530.css" integrity="sha256-8E29YoKqMOLWo07IFqyvKtQXddgf7L3s0K5Z4EizdTA=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.strausscenter.org/wp-content/uploads/Elazari_hacker_square-1024x1010.jpg">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/my-blog/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="http://localhost:1313/my-blog/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/my-blog/projects/layer_acttacks/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/my-blog/posts/lap-trinh-ung-dung-web/">
 <noscript>
     <style>
         #theme-toggle,
@@ -127,135 +127,54 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding
+      Lập trình ứng dụng Web
     </h1>
     <div class="post-description">
-      Một hướng dẫn từng bước để cấu hình Port Security trên switch Cisco, giúp ngăn chặn hiệu quả tấn công làm tràn bảng CAM (MAC Flooding).
+      Lập trình ứng dụng web tại UIT
     </div>
-    <div class="post-meta"><span title='2025-07-26 20:19:31 +0700 +07'>July 26, 2025</span>&nbsp;·&nbsp;5 min
+    <div class="post-meta"><span title='2025-08-27 14:10:48 +0700 +07'>August 27, 2025</span>&nbsp;·&nbsp;2 min
 
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="eager" src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200420233139/MAC_ADDRESS.png" alt="MAC security">
+        <img loading="eager" src="https://raccoon.vn/public/upload/images/tintuc/nhan-lap-trinh-ung-dung-web-app-gia-re.png" alt="WEB">
         
 </figure>
   <div class="post-content"><hr>
-<p>Chào tất cả mọi người cảm ơn mọi người đã dành thời gian đọc blog này!
-Trong bài viết này, chúng ta sẽ khám phá các cuộc tấn công Layer 2, cách chúng hoạt động và phòng chống</p>
-<h2 id="phần-1-các-khái-niệm">Phần 1: Các khái niệm<a hidden class="anchor" aria-hidden="true" href="#phần-1-các-khái-niệm">#</a></h2>
-<p>Trước khi đi vào tìm hiểu thì chúng ta sẽ làm rõ Layer 2-Tầng Data link là gì?<br>
-Mỗi thiết bị vật lý đều có một địa chỉ được gắn vào NIC (Network Interface Card) của nó, địa chỉ này được gọi là MAC (Media Access Control) địa chỉ.
-<img alt="MAC" loading="lazy" src="https://www.ipxo.com/app/uploads/2022/05/MAC-address-min.png">
-Thì địa chỉ MAC gồm hai phân đoạn:</p>
-<ul>
-<li>24 bit (6 byte) đầu cho <strong>Organizationally Unique Identifier</strong> (OUI) giúp phân biệt các nhà sản xuất.</li>
-<li>24 bit (6 byte) còn lại cho thiết bị.<br>
-<strong>Lưu ý</strong>: địa chỉ MAC không thể thay đổi và gắn liền với thiết bị.</li>
-</ul>
-<h3 id="giao-thức-arp-là-gì">Giao thức ARP là gì?<a hidden class="anchor" aria-hidden="true" href="#giao-thức-arp-là-gì">#</a></h3>
-<p>Là giao thức từ địa chỉ IP biết được địa chỉ MAC của máy tính khác.
-<img alt="ARP" loading="lazy" src="https://www.fortinet.com/content/dam/fortinet/images/cyberglossary/what-is-arp.jpg"></p>
-<h3 id="bảng-cam-là-gì">Bảng CAM là gì?<a hidden class="anchor" aria-hidden="true" href="#bảng-cam-là-gì">#</a></h3>
-<p>Là bảng lưu trữ địa chỉ MAC của các thiết bị trong mạng.
-<img alt="CAM" loading="lazy" src="https://www.computernetworkingnotes.com/wp-content/uploads/ccna-study-guide/images/csg177-01-cam-table.png"></p>
-<h2 id="phần-2-các-loại-tấn-công-mac">Phần 2: Các loại tấn công MAC<a hidden class="anchor" aria-hidden="true" href="#phần-2-các-loại-tấn-công-mac">#</a></h2>
-<h3 id="1-tấn-công-mac-flooding">1. Tấn công MAC Flooding<a hidden class="anchor" aria-hidden="true" href="#1-tấn-công-mac-flooding">#</a></h3>
-<p>Như đã nói ở trên bảng CAM sẽ lưu lại địa chỉ mỗi khi một thiết bị kết nối vào mạng. Nhưng chuyện gì sẽ xảy ra nếu một thiết bị gửi một lượng lớn địa chỉ MAC giả vào bảng CAM?<br>
-<img alt="MAC Flooding" loading="lazy" src="https://app.trustline.sa/media/blog/2024/10/09/scrnn4.jpeg"></p>
-<ul>
-<li><strong>Lỗi</strong>: Bảng CAM sẽ đầy và không thể lưu thêm địa chỉ MAC nào nữa.</li>
-<li><strong>Hiệu ứng</strong>: Mạng sẽ bị quá tải và không thể kết nối được với các thiết bị hợp lệ. Switch bị quá tải không thể xử lý được yêu cầu từ đó các gói tin sẽ được switch gửi broadcast (được gửi đến toàn bộ thiết bị trong mạng ) và máy attacker sẽ bắt được toàn bộ những gói tin này từ đó có thể đọc được thông tin của các thiết bị trong mạng rồi thực hiện tiếp các cuộc tấn công khác</li>
-</ul>
-<h3 id="2-tấn-công-mac-spoofing">2. Tấn công MAC Spoofing<a hidden class="anchor" aria-hidden="true" href="#2-tấn-công-mac-spoofing">#</a></h3>
-<p>Đây là một cuộc tấn công attacker sẽ chen chân vào giữa đường truyền.
-<img alt="MAC Spoofing" loading="lazy" src="https://www.securew2.com/wp-content/uploads/2023/05/mac_spoofing-1024x310.png">
-Chúng sẽ gửi một gói tin đến máy nạn nhận bảo tôi là <strong>gateway của bạn</strong> xong lại gửi 1 gói tin cho gateway bảo <strong>tôi là máy A(victim)</strong> vậy từ giờ khi máy A gửi gói tin đi đều đi trung gian qua máy attacker.<br>
-Vậy chúng có thể sửa thay đổi làm bất kỳ chúng muốn.<br>
-<strong>Một dạng tấn công khác</strong>: chúng giả dạng làm máy nạn nhận khiến switch không biết máy nào là thật gây xung đột.</p>
-<h2 id="phần-3-phòng-chống">Phần 3: Phòng chống<a hidden class="anchor" aria-hidden="true" href="#phần-3-phòng-chống">#</a></h2>
-<h3 id="1-chống-mac-flooding-với-port-security">1. Chống MAC Flooding với Port Security<a hidden class="anchor" aria-hidden="true" href="#1-chống-mac-flooding-với-port-security">#</a></h3>
-<p>Chúng ta sẽ sử dụng tính năng Port Security trên switch chỉ cho phép học MAC của một thiết bị duy nhất trên mỗi cổng hoặc giới hạn số thiết bị học trên 1 cổng.</p>
-<pre tabindex="0"><code class="language-Cisco" data-lang="Cisco">! Đi vào chế độ cấu hình interface
-interface FastEthernet0/1
-
-! Đảm bảo cổng đang ở mode access
-switchport mode access
-
-! Bật tính năng Port Security trên cổng này
-switchport port-security
-
-! Giới hạn chỉ cho phép tối đa 2 địa chỉ MAC học trên cổng
-! (1 cho máy tính, 1 có thể dự phòng cho điện thoại IP chẳng hạn)
-switchport port-security maximum 2
-
-! Nếu có vi phạm, cổng sẽ tự động bị &#34;shutdown&#34;
-switchport port-security violation shutdown
-
-! (Tùy chọn) Tự động học MAC đầu tiên và &#34;gắn&#34; nó vào cấu hình
-! Giúp chống việc ai đó rút máy tính ra và cắm thiết bị khác vào
-switchport port-security mac-address sticky
-
-! Thoát khỏi chế độ cấu hình
-exit
-</code></pre><h3 id="2-chống-giả-mạo-và-đầu-độc-arp-với-dai--dhcp-snooping">2. Chống Giả mạo và Đầu độc ARP với DAI &amp; DHCP Snooping<a hidden class="anchor" aria-hidden="true" href="#2-chống-giả-mạo-và-đầu-độc-arp-với-dai--dhcp-snooping">#</a></h3>
-<ul>
-<li><strong>DAI (Dynamic ARP Inspection)</strong>: Chặn các gói tin ARP giả mạo.</li>
-</ul>
-<pre tabindex="0"><code class="language-Cisco" data-lang="Cisco">! Bật DAI trên các VLAN tương ứng
-ip arp inspection vlan 10,20
-
-! --- Cấu hình cổng tin cậy (Trusted Port) ---
-! Tương tự DHCP Snooping, bạn cần khai báo cổng nối đến router là tin cậy.
-! DAI sẽ không kiểm tra các gói tin ARP đến từ cổng này.
-interface GigabitEthernet0/1
-    ip arp inspection trust
-exit
-
-! --- Các cổng còn lại (Untrusted Port) ---
-! DAI sẽ kiểm tra TẤT CẢ các gói tin ARP đến từ các cổng không tin cậy.
-! Nếu thông tin trong gói tin ARP không khớp với CSDL của DHCP Snooping,
-! gói tin đó sẽ bị hủy bỏ.
-</code></pre><ul>
-<li><strong>DHCP Snooping</strong>: Chặn các gói tin DHCP giả mạo.</li>
-</ul>
-<pre tabindex="0"><code class="language-Cisco" data-lang="Cisco">! Bật DHCP Snooping trên toàn bộ switch
-ip dhcp snooping
-
-! Chỉ định VLAN mà bạn muốn DHCP Snooping hoạt động
-ip dhcp snooping vlan 10,20
-
-! --- Cấu hình cổng tin cậy (Trusted Port) ---
-! Đây là cổng nối đến máy chủ DHCP hoặc router cấp phát IP
-interface GigabitEthernet0/1
-    ip dhcp snooping trust
-exit
-
-! --- Các cổng còn lại (Untrusted Port) mặc định không cần cấu hình gì thêm ---
-! Switch sẽ tự động coi các cổng không được khai báo &#34;trust&#34; là &#34;untrus
-</code></pre><hr>
-<p>Nếu các bạn muốn demo thực hiện các cuộc tấn công trên thì các bạn hãy sử dụng phần GNS3 để mô phỏng quá trình trên để hiểu rõ chi tiết hơn.</p>
+<p><strong>Chào các bạn!</strong>
+Đến với môn web chắc hẳn các bạn cũng nghĩ mình học An toàn thông tin sao lại phải học code web làm gì, hồi đó mình cũng nghĩ vậy nhưng đến cuối khi học xong và có tiếp cận với lỗ hổng web thì mình thấy nó thực sự quan trong cho nền tảng sau này của chúng ta.</p>
+<h1 id="đối-với-điểm-quá-trình">Đối với điểm quá trình<a hidden class="anchor" aria-hidden="true" href="#đối-với-điểm-quá-trình">#</a></h1>
+<p>Các bạn cần đi học đầy đủ để điểm danh và sẽ làm các quizz câu hỏi liên quan đến nội dung bài tập.</p>
+<h1 id="đối-với-đồ-án">Đối với đồ án<a hidden class="anchor" aria-hidden="true" href="#đối-với-đồ-án">#</a></h1>
+<p>Thì đồ án ở đây thì các bạn sẽ phải code 1 trang web và nội dung thế nào thì tùy thuộc vào giáo viên giảng dạy, đây là một môn làm nhóm khoảng 4-5 người nên việc chọn ra 1 nhóm trưởng phải biết quản lý team để giao task. Ở môn này nếu đen bạn sẽ match trúng toàn trời ơi đất hời và tạch, bạn sẽ phải gồng gánh cả cái đồ án. Vậy nên chọn team thật kỹ càng.<br>
+Nhóm mình khi làm đồ án thì có 1 cái là rất hay trì hoản đến sát giờ mới làm nên các bạn đừng như mình, kể từ tuần bắt đầu thì phải giao task, mỗi tuần đều có mỗi task cho mỗi người phải có bảng tiếng độ để tham chiếu đối xứng.<br>
+Đối với cách chấm điểm đồ án thì tối thiểu các bạn phải xây được 1 web cơ bản backend-frontend database như nào vân vân. Các bạn không cần phải code sao cho ngầu lòi hiệu ứng lòe lẹt đâu. Cái mà bản cần nên show là những chứng năng khó nào mà các bạn đã làm được. Ví dụ như load balancer, Lịch sử chat chia thành các frame, tích bảo mật mạnh mẽ,..</p>
+<h1 id="tóm-lại">Tóm lại<a hidden class="anchor" aria-hidden="true" href="#tóm-lại">#</a></h1>
+<p>Môn học này khá nhẹ nhàng đối với bên ATTT và các ngành khác mình cũng không biết thế nào. Bạn muốn đạt điểm cao?? Hãy ghép team chuẩn, đi học đầy đủ, làm quizz,&hellip;&hellip;..</p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/my-blog/tags/layer_acttacks/">Layer_Acttacks</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/attack/">Attack</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/projects/">Projects</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/hacking/">Hacking</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/ceh/">CEH</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/cisco/">Cisco</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/port-security/">Port Security</a></li>
-      <li><a href="http://localhost:1313/my-blog/tags/mac-flooding/">MAC Flooding</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/uit/">UIT</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/m%C3%B4n-c%C6%A1-s%E1%BB%9F/">Môn Cơ Sở</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/attt/">ATTT</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/web/">WEB</a></li>
     </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/my-blog/posts/mmh/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Mật Mã Học</span>
+  </a>
+</nav>
 
 
 <ul class="share-buttons">
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on x"
-            href="https://x.com/intent/tweet/?text=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f&amp;hashtags=Layer_Acttacks%2cAttack%2cProjects%2cHacking%2cCEH%2cCisco%2cPortSecurity%2cMACFlooding">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on x"
+            href="https://x.com/intent/tweet/?text=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f&amp;hashtags=UIT%2cM%c3%b4nc%c6%a1s%e1%bb%9f%2cATTT%2cWEB">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
@@ -263,8 +182,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f&amp;title=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding&amp;summary=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding&amp;source=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f&amp;title=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web&amp;summary=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web&amp;source=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
@@ -272,8 +191,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on reddit"
-            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f&title=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f&title=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
@@ -281,8 +200,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on facebook"
-            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
@@ -290,8 +209,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on whatsapp"
-            href="https://api.whatsapp.com/send?text=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding%20-%20http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on whatsapp"
+            href="https://api.whatsapp.com/send?text=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web%20-%20http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
@@ -299,8 +218,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on telegram"
-            href="https://telegram.me/share/url?text=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on telegram"
+            href="https://telegram.me/share/url?text=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f">
             <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
@@ -308,8 +227,8 @@ exit
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Hướng Dẫn Cấu Hình Port Security Chống MAC Flooding on ycombinator"
-            href="https://news.ycombinator.com/submitlink?t=H%c6%b0%e1%bb%9bng%20D%e1%ba%abn%20C%e1%ba%a5u%20H%c3%acnh%20Port%20Security%20Ch%e1%bb%91ng%20MAC%20Flooding&u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fprojects%2flayer_acttacks%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lập trình ứng dụng Web on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=L%e1%ba%adp%20tr%c3%acnh%20%e1%bb%a9ng%20d%e1%bb%a5ng%20Web&u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2flap-trinh-ung-dung-web%2f">
             <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
                 <path

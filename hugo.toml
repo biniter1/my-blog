@@ -11,6 +11,9 @@ ShowReadingTime = true
 ShowPostNavLinks = true
 disableSpecial1stPost = true
 
+[params.assets]
+favicon = "https://www.strausscenter.org/wp-content/uploads/Elazari_hacker_square-1024x1010.jpg"
+
 [markup.goldmark.renderer]
   unsafe = true
 [menu]
