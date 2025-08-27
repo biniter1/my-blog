@@ -10,6 +10,9 @@ cover:
 ---
 ---
 **Chào các bạn!**
+ 
+Hôm nay mình sẽ giới thiệu về môn học **WEB**  
+Mình sẽ để link tài liệu (thực hành và lý thuyết):👉[📁 Xem thư mục Google Drive tại đây](https://drive.google.com/drive/folders/1XqATtZ4YjWqzkP_nq66vfZ5gyJNckN98?usp=sharing)  
 Đến với môn web chắc hẳn các bạn cũng nghĩ mình học An toàn thông tin sao lại phải học code web làm gì, hồi đó mình cũng nghĩ vậy nhưng đến cuối khi học xong và có tiếp cận với lỗ hổng web thì mình thấy nó thực sự quan trong cho nền tảng sau này của chúng ta.
 
 # Đối với điểm quá trình
