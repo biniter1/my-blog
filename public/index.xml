@@ -6,8 +6,18 @@
     <description>Recent content on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Wed, 27 Aug 2025 14:10:48 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 18 Sep 2025 22:41:39 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net</title>
+      <link>http://localhost:1313/my-blog/posts/bug_hunting_s1/</link>
+      <pubDate>Thu, 18 Sep 2025 22:41:39 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/bug_hunting_s1/</guid>
+      <description>&lt;hr&gt;
+&lt;h2 id=&#34;-tóm-tắt&#34;&gt;📋 Tóm tắt&lt;/h2&gt;
+&lt;p&gt;Trong lần thu thập thông tin (recon), tôi phát hiện &lt;code&gt;gsslink.agilebits.com&lt;/code&gt; là một CNAME trỏ tới &lt;code&gt;d41c4ucz81chh.cloudfront.net&lt;/code&gt;. Khi truy vấn HTTPS, server trả HTTP/2 404 với header &lt;code&gt;x-cache: Error from cloudfront&lt;/code&gt; và body là trang lỗi nginx.&lt;/p&gt;
+&lt;p&gt;Các bằng chứng này chỉ ra rằng CloudFront distribution hoặc origin không phục vụ nội dung hợp lệ cho hostname này — đây là dấu hiệu &lt;strong&gt;potential subdomain takeover&lt;/strong&gt; (tiềm ẩn).&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Lập trình ứng dụng Web</title>
       <link>http://localhost:1313/my-blog/posts/lap-trinh-ung-dung-web/</link>
@@ -79,19 +89,6 @@
         &lt;p&gt;
             Hiện tại, mình đang là sinh viên chuyên ngành &lt;strong&gt;An toàn Thông tin&lt;/strong&gt; tại trường &lt;strong&gt;Đại học Công nghệ Thông tin (UIT)&lt;/strong&gt; - ĐHQG TP.HCM. Với niềm đam mê khám phá các lỗ hổng và xây dựng những hệ thống vững chắc, mình đã tạo ra blog này để chia sẻ những kiến thức mình học được cũng như các dự án cá nhân tâm đắc.
         &lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Chào Thế Giới</title>
-      <link>http://localhost:1313/my-blog/posts/chao-the-gioi/</link>
-      <pubDate>Sun, 13 Jul 2025 17:30:00 +0700</pubDate>
-      <guid>http://localhost:1313/my-blog/posts/chao-the-gioi/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Đây là bài viết đầu tiên trên blog Hugo của tôi!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Bạn có thể viết nội dung bằng &lt;em&gt;Markdown&lt;/em&gt; ở đây. Rất đơn giản và trực quan.&lt;/p&gt;
-&lt;h2 id=&#34;đây-là-một-tiêu-đề-phụ&#34;&gt;Đây là một tiêu đề phụ&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Mục 1&lt;/li&gt;
-&lt;li&gt;Mục 2&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>

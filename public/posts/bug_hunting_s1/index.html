@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/my-blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=my-blog/livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net | Blog cá nhân của Sonbin</title>
+<meta name="keywords" content="Bug Hunting, Subdomain Takeover, CloudFront, AWS, DNS Security, Web Security">
+<meta name="description" content="
+📋 Tóm tắt
+Trong lần thu thập thông tin (recon), tôi phát hiện gsslink.agilebits.com là một CNAME trỏ tới d41c4ucz81chh.cloudfront.net. Khi truy vấn HTTPS, server trả HTTP/2 404 với header x-cache: Error from cloudfront và body là trang lỗi nginx.
+Các bằng chứng này chỉ ra rằng CloudFront distribution hoặc origin không phục vụ nội dung hợp lệ cho hostname này — đây là dấu hiệu potential subdomain takeover (tiềm ẩn).">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/my-blog/posts/bug_hunting_s1/">
+<link crossorigin="anonymous" href="/my-blog/assets/css/stylesheet.f04dbd6282aa30e2d6a34ec816acaf2ad41775d81fecbdecd0ae59e048b37530.css" integrity="sha256-8E29YoKqMOLWo07IFqyvKtQXddgf7L3s0K5Z4EizdTA=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.strausscenter.org/wp-content/uploads/Elazari_hacker_square-1024x1010.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/my-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/my-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/my-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/my-blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/my-blog/posts/bug_hunting_s1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/my-blog/" accesskey="h" title="Blog cá nhân của Sonbin (Alt + H)">Blog cá nhân của Sonbin</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/my-blog/posts/" title="Bài viết">
+                    <span>Bài viết</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/my-blog/about/" title="Giới thiệu">
+                    <span>Giới thiệu</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/my-blog/projects/" title=" Personal Project">
+                    <span> Personal Project</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/my-blog/tags/" title="Thẻ">
+                    <span>Thẻ</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net
+    </h1>
+    <div class="post-meta"><span title='2025-09-18 22:41:39 +0700 +07'>September 18, 2025</span>&nbsp;·&nbsp;5 min
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://i.ibb.co/TMS9Mdmn/Gemini-Generated-Image-kw8jmckw8jmckw8j.png" alt="Bug s1">
+        
+</figure>
+  <div class="post-content"><hr>
+<h2 id="-tóm-tắt">📋 Tóm tắt<a hidden class="anchor" aria-hidden="true" href="#-tóm-tắt">#</a></h2>
+<p>Trong lần thu thập thông tin (recon), tôi phát hiện <code>gsslink.agilebits.com</code> là một CNAME trỏ tới <code>d41c4ucz81chh.cloudfront.net</code>. Khi truy vấn HTTPS, server trả HTTP/2 404 với header <code>x-cache: Error from cloudfront</code> và body là trang lỗi nginx.</p>
+<p>Các bằng chứng này chỉ ra rằng CloudFront distribution hoặc origin không phục vụ nội dung hợp lệ cho hostname này — đây là dấu hiệu <strong>potential subdomain takeover</strong> (tiềm ẩn).</p>
+<blockquote>
+<p>⚠️ <strong>Lưu ý đạo đức/pháp lý</strong>: Tất cả thao tác chỉ là read-only (dig, curl, openssl). Không có hành vi đăng ký/claim resource, không thử thay đổi/cấu hình dịch vụ bên thứ ba. Không cung cấp hướng dẫn khai thác.</p></blockquote>
+<hr>
+<h2 id="-bối-cảnh">🎯 Bối cảnh<a hidden class="anchor" aria-hidden="true" href="#-bối-cảnh">#</a></h2>
+<p><strong>Subdomain phát hiện</strong>: <code>gsslink.agilebits.com</code></p>
+<p><strong>DNS Resolution</strong>: CNAME → CloudFront: <code>d41c4ucz81chh.cloudfront.net</code></p>
+<p>Việc trỏ CNAME tới <code>*.cloudfront.net</code> gợi ý subdomain từng (hoặc đang) sử dụng AWS CloudFront làm CDN/distribution. Nếu distribution hoặc origin không cấu hình để trả nội dung cho hostname đó (ví dụ origin bị xóa, distribution không chứa Alternate Domain Name phù hợp), subdomain có thể trở nên &ldquo;orphaned&rdquo; và xuất hiện rủi ro takeover.</p>
+<hr>
+<h2 id="-các-lệnh-kiểm-tra-read-only-evidence">🔍 Các lệnh kiểm tra (Read-only Evidence)<a hidden class="anchor" aria-hidden="true" href="#-các-lệnh-kiểm-tra-read-only-evidence">#</a></h2>
+<h3 id="1-kiểm-tra-dns-cname">1. Kiểm tra DNS CNAME<a hidden class="anchor" aria-hidden="true" href="#1-kiểm-tra-dns-cname">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dig +short gsslink.agilebits.com CNAME
+</span></span><span style="display:flex;"><span>d41c4ucz81chh.cloudfront.net.
+</span></span></code></pre></div><h3 id="2-thử-truy-vấn-dns-toàn-bộ">2. Thử truy vấn DNS toàn bộ<a hidden class="anchor" aria-hidden="true" href="#2-thử-truy-vấn-dns-toàn-bộ">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dig gsslink.agilebits.com ANY +noall +answer
+</span></span><span style="display:flex;"><span>;; Connection to 172.26.96.1#53<span style="color:#f92672">(</span>172.26.96.1<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> gsslink.agilebits.com failed: timed out.
+</span></span><span style="display:flex;"><span>;; no servers could be reached
+</span></span><span style="display:flex;"><span>;; Connection to 172.26.96.1#53<span style="color:#f92672">(</span>172.26.96.1<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> gsslink.agilebits.com failed: timed out.
+</span></span><span style="display:flex;"><span>;; no servers could be reached
+</span></span><span style="display:flex;"><span>;; Connection to 172.26.96.1#53<span style="color:#f92672">(</span>172.26.96.1<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> gsslink.agilebits.com failed: timed out.
+</span></span><span style="display:flex;"><span>;; no servers could be reached
+</span></span></code></pre></div><blockquote>
+<p>📝 <strong>Ghi chú</strong>: Lỗi này do resolver cục bộ (172.26.96.1) không phản hồi — không ảnh hưởng kết luận vì CNAME đã thu được qua <code>dig +short</code>.</p></blockquote>
+<h3 id="3-kiểm-tra-http-headers">3. Kiểm tra HTTP Headers<a hidden class="anchor" aria-hidden="true" href="#3-kiểm-tra-http-headers">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -I -L https://gsslink.agilebits.com
+</span></span><span style="display:flex;"><span>HTTP/2 <span style="color:#ae81ff">404</span>
+</span></span><span style="display:flex;"><span>content-type: text/html
+</span></span><span style="display:flex;"><span>content-length: <span style="color:#ae81ff">146</span>
+</span></span><span style="display:flex;"><span>server: nginx
+</span></span><span style="display:flex;"><span>date: Fri, <span style="color:#ae81ff">19</span> Sep <span style="color:#ae81ff">2025</span> 02:15:27 GMT
+</span></span><span style="display:flex;"><span>x-cache: Error from cloudfront
+</span></span><span style="display:flex;"><span>via: 1.1 0ad8fd57a8360042531af664f971c84a.cloudfront.net <span style="color:#f92672">(</span>CloudFront<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>x-amz-cf-pop: HAN50-P2
+</span></span><span style="display:flex;"><span>x-amz-cf-id: KKiMMabNsT6D83STkcLgxOUTFFGoItJSx_BZfO8lrS2Z-KcV0H5YmQ<span style="color:#f92672">==</span>
+</span></span></code></pre></div><h3 id="4-kiểm-tra-response-body">4. Kiểm tra Response Body<a hidden class="anchor" aria-hidden="true" href="#4-kiểm-tra-response-body">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ curl -sS https://gsslink.agilebits.com | head -n <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>&lt;html&gt;
+</span></span><span style="display:flex;"><span>&lt;head&gt;&lt;title&gt;404 Not Found&lt;/title&gt;&lt;/head&gt;
+</span></span><span style="display:flex;"><span>&lt;body&gt;
+</span></span><span style="display:flex;"><span>&lt;center&gt;&lt;h1&gt;404 Not Found&lt;/h1&gt;&lt;/center&gt;
+</span></span><span style="display:flex;"><span>&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
+</span></span><span style="display:flex;"><span>&lt;/body&gt;
+</span></span><span style="display:flex;"><span>&lt;/html&gt;
+</span></span></code></pre></div><h3 id="5-kiểm-tra-tls-certificate">5. Kiểm tra TLS Certificate<a hidden class="anchor" aria-hidden="true" href="#5-kiểm-tra-tls-certificate">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ echo | openssl s_client -connect gsslink.agilebits.com:443 -servername gsslink.agilebits.com 2&gt;/dev/null | openssl x509 -noout -text | sed -n <span style="color:#e6db74">&#39;1,20p&#39;</span>
+</span></span><span style="display:flex;"><span>Certificate:
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    Validity
+</span></span><span style="display:flex;"><span>        Not Before: Sep  <span style="color:#ae81ff">9</span> 00:00:00 <span style="color:#ae81ff">2025</span> GMT
+</span></span><span style="display:flex;"><span>        Not After : Oct  <span style="color:#ae81ff">8</span> 23:59:59 <span style="color:#ae81ff">2026</span> GMT
+</span></span><span style="display:flex;"><span>    Subject: CN<span style="color:#f92672">=</span>gslink.email.1password.com
+</span></span><span style="display:flex;"><span>    ...
+</span></span></code></pre></div><blockquote>
+<p>🚨 <strong>Quan trọng</strong>: Certificate Subject CN là <code>gslink.email.1password.com</code> — không khớp với <code>gsslink.agilebits.com</code>.</p></blockquote>
+<hr>
+<h2 id="-phân-tích-kết-quả">🔎 Phân tích kết quả<a hidden class="anchor" aria-hidden="true" href="#-phân-tích-kết-quả">#</a></h2>
+<h3 id="-bằng-chứng-cho-thấy-potential-subdomain-takeover">✅ Bằng chứng cho thấy Potential Subdomain Takeover<a hidden class="anchor" aria-hidden="true" href="#-bằng-chứng-cho-thấy-potential-subdomain-takeover">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Bằng chứng</th>
+          <th>Giải thích</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>CNAME → CloudFront</strong></td>
+          <td><code>d41c4ucz81chh.cloudfront.net</code> xác nhận DNS đang trỏ subdomain tới CloudFront distribution</td>
+      </tr>
+      <tr>
+          <td><strong>HTTP/2 404 + x-cache Error</strong></td>
+          <td>CloudFront edge nhận request nhưng gặp lỗi khi truy origin hoặc distribution không phục vụ hostname</td>
+      </tr>
+      <tr>
+          <td><strong>Nginx Error Page</strong></td>
+          <td>Origin trả trang lỗi nginx thay vì nội dung hợp lệ</td>
+      </tr>
+      <tr>
+          <td><strong>TLS Certificate Mismatch</strong></td>
+          <td>Certificate cho <code>gslink.email.1password.com</code>, không phải <code>gsslink.agilebits.com</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="-kết-luận-phân-tích">🎯 Kết luận phân tích<a hidden class="anchor" aria-hidden="true" href="#-kết-luận-phân-tích">#</a></h3>
+<p>Đây là <strong>evidence of potential subdomain takeover/orphaned CloudFront mapping</strong>. Không đủ bằng chứng rằng takeover thành công đã xảy ra, nhưng đủ để khuyến nghị chủ sở hữu kiểm tra và khắc phục ngay lập tức.</p>
+<hr>
+<h2 id="-đánh-giá-rủi-ro-và-tác-động">⚠️ Đánh giá rủi ro và tác động<a hidden class="anchor" aria-hidden="true" href="#-đánh-giá-rủi-ro-và-tác-động">#</a></h2>
+<h3 id="mức-độ-rủi-ro">Mức độ rủi ro<a hidden class="anchor" aria-hidden="true" href="#mức-độ-rủi-ro">#</a></h3>
+<p><strong>Trung bình → Cao</strong> (tùy thuộc subdomain từng phục vụ: assets, JS, API, form, redirects&hellip;)</p>
+<h3 id="khả-năng-tấn-công">Khả năng tấn công<a hidden class="anchor" aria-hidden="true" href="#khả-năng-tấn-công">#</a></h3>
+<p>Nếu attacker có thể tạo origin/distribution phù hợp, họ có thể:</p>
+<ul>
+<li>Host nội dung độc hại dưới subdomain</li>
+<li>Thực hiện phishing attacks</li>
+<li>Hijack tài nguyên quan trọng (JS libraries)</li>
+<li>Redirect users tới trang độc hại</li>
+</ul>
+<h3 id="tác-động-thực-tế">Tác động thực tế<a hidden class="anchor" aria-hidden="true" href="#tác-động-thực-tế">#</a></h3>
+<ul>
+<li><strong>Nếu subdomain từng cung cấp tài nguyên quan trọng</strong>: Hậu quả nghiêm trọng</li>
+<li><strong>Nếu chỉ là subdomain phụ/unused</strong>: Ảnh hưởng ít hơn nhưng vẫn không nên để tồn tại</li>
+</ul>
+<hr>
+<h2 id="-khuyến-nghị-khắc-phục">🛠️ Khuyến nghị khắc phục<a hidden class="anchor" aria-hidden="true" href="#-khuyến-nghị-khắc-phục">#</a></h2>
+<h3 id="nếu-subdomain-không-còn-sử-dụng">Nếu subdomain không còn sử dụng<a hidden class="anchor" aria-hidden="true" href="#nếu-subdomain-không-còn-sử-dụng">#</a></h3>
+<ul>
+<li>❌ <strong>Xóa record CNAME</strong> khỏi DNS zone</li>
+</ul>
+<h3 id="nếu-subdomain-muốn-tiếp-tục-sử-dụng">Nếu subdomain muốn tiếp tục sử dụng<a hidden class="anchor" aria-hidden="true" href="#nếu-subdomain-muốn-tiếp-tục-sử-dụng">#</a></h3>
+<h4 id="-cấu-hình-cloudfront">🔧 Cấu hình CloudFront<a hidden class="anchor" aria-hidden="true" href="#-cấu-hình-cloudfront">#</a></h4>
+<ul>
+<li>✅ Đảm bảo CloudFront distribution có <strong>Alternate Domain Name (CNAME)</strong> bao gồm <code>gsslink.agilebits.com</code></li>
+<li>✅ Gắn <strong>chứng chỉ TLS phù hợp</strong> (ACM cert) bao gồm hostname</li>
+<li>✅ Kiểm tra <strong>origin</strong> (S3 bucket/origin server) tồn tại và trả nội dung cho hostname</li>
+</ul>
+<h4 id="-nếu-origin-là-s3">🗃️ Nếu origin là S3<a hidden class="anchor" aria-hidden="true" href="#-nếu-origin-là-s3">#</a></h4>
+<ul>
+<li>✅ Đảm bảo bucket tồn tại</li>
+<li>✅ Tên bucket/virtual-hosted-style đúng</li>
+<li>✅ Policy/public access hợp lý (không public sensitive data)</li>
+</ul>
+<h4 id="-bảo-mật-bổ-sung">🔒 Bảo mật bổ sung<a hidden class="anchor" aria-hidden="true" href="#-bảo-mật-bổ-sung">#</a></h4>
+<ul>
+<li>✅ Thêm security headers: HSTS, CSP, X-Content-Type-Options, X-Frame-Options</li>
+<li>✅ <strong>Giám sát DNS</strong>: Tự động scan zone để phát hiện CNAME trỏ tới third-party domains</li>
+<li>✅ <strong>Audit &amp; Checklist</strong>: Bổ sung kiểm tra vào quy trình deploy/CI</li>
+</ul>
+<hr>
+<h2 id="-disclosure-note">📢 Disclosure Note<a hidden class="anchor" aria-hidden="true" href="#-disclosure-note">#</a></h2>
+<blockquote>
+<p>🔍 <strong>Minh bạch với độc giả</strong>: Mọi thao tác trong bài viết này chỉ là <strong>passive/read-only</strong>: dig, curl, openssl. Tôi không đăng ký, claim hoặc thay đổi bất kỳ tài nguyên nào của bên thứ ba.</p>
+<p>Lỗ hỏng này có thể đã được xử lý (out-of-scope với chương trình bounty có liên quan). Bài viết nhằm mục đích <strong>giáo dục</strong> và chia sẻ quy trình kiểm chứng an toàn.</p></blockquote>
+<hr>
+<h2 id="-kết-luận">🎯 Kết luận<a hidden class="anchor" aria-hidden="true" href="#-kết-luận">#</a></h2>
+<p>Các bằng chứng thu thập từ việc phân tích <code>gsslink.agilebits.com</code> tạo thành một bức tranh thuyết phục:</p>
+<ul>
+<li><strong>CNAME → CloudFront</strong> với phản hồi lỗi</li>
+<li><strong>HTTP/2 404</strong> với <code>x-cache: Error from cloudfront</code></li>
+<li><strong>Nginx error page</strong> thay vì nội dung hợp lệ</li>
+<li><strong>Certificate mismatch</strong> cho hostname khác</li>
+</ul>
+<p>Tất cả đều chỉ ra rằng subdomain hiện <strong>không được phục vụ nội dung hợp lệ</strong> qua CloudFront — đây là <strong>potential subdomain takeover</strong>.</p>
+<p><strong>Chủ sở hữu nên kiểm tra và khắc phục ngay lập tức</strong> theo các khuyến nghị đã nêu để đảm bảo an toàn hệ thống.</p>
+<hr>
+<p><strong>Date</strong>: September 18, 2025</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/my-blog/tags/bug-hunting/">Bug Hunting</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/subdomain-takeover/">Subdomain Takeover</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/cloudfront/">CloudFront</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/aws/">AWS</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/dns-security/">DNS Security</a></li>
+      <li><a href="http://localhost:1313/my-blog/tags/web-security/">Web Security</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/my-blog/posts/lap-trinh-ung-dung-web/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Lập trình ứng dụng Web</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on x"
+            href="https://x.com/intent/tweet/?text=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f&amp;hashtags=BugHunting%2cSubdomainTakeover%2cCloudFront%2cAWS%2cDNSSecurity%2cWebSecurity">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f&amp;title=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net&amp;summary=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net&amp;source=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f&title=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on whatsapp"
+            href="https://api.whatsapp.com/send?text=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net%20-%20http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on telegram"
+            href="https://telegram.me/share/url?text=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net&amp;url=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Hành trình săn bug: Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=H%c3%a0nh%20tr%c3%acnh%20s%c4%83n%20bug%3a%20Case%20Study%3a%20Ph%c3%a1t%20hi%e1%bb%87n%20d%e1%ba%a5u%20hi%e1%bb%87u%20Subdomain%20Takeover%20%e2%80%94%20gsslink.agilebits.com%20%e2%86%92%20d41c4ucz81chh.cloudfront.net&u=http%3a%2f%2flocalhost%3a1313%2fmy-blog%2fposts%2fbug_hunting_s1%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/my-blog/">Blog cá nhân của Sonbin</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -6,8 +6,15 @@
     <description>Recent content in Tags on Blog cá nhân của Sonbin</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>vi-vn</language>
-    <lastBuildDate>Wed, 27 Aug 2025 14:10:48 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 18 Sep 2025 22:41:39 +0700</lastBuildDate>
     <atom:link href="http://localhost:1313/my-blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bug Hunting</title>
+      <link>http://localhost:1313/my-blog/tags/bug-hunting/</link>
+      <pubDate>Thu, 18 Sep 2025 22:41:39 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/tags/bug-hunting/</guid>
+      <description></description>
+    </item>
     <item>
       <title>ATTT</title>
       <link>http://localhost:1313/my-blog/tags/attt/</link>

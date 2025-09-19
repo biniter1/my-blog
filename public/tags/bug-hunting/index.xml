@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Bug Hunting on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/bug-hunting/</link>
+    <description>Recent content in Bug Hunting on Blog cá nhân của Sonbin</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Thu, 18 Sep 2025 22:41:39 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/my-blog/tags/bug-hunting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net</title>
+      <link>http://localhost:1313/my-blog/posts/bug_hunting_s1/</link>
+      <pubDate>Thu, 18 Sep 2025 22:41:39 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/bug_hunting_s1/</guid>
+      <description>&lt;h1 id=&#34;case-study-phát-hiện-dấu-hiệu-subdomain-takeover--gsslinkagilebitscom--d41c4ucz81chhcloudfrontnet&#34;&gt;Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Tóm tắt&lt;/strong&gt;:
+Trong lần thu thập thông tin (recon), tôi phát hiện gsslink.agilebits.com là một CNAME trỏ tới d41c4ucz81chh.cloudfront.net.. Khi truy vấn HTTPS, server trả HTTP/2 404 với header x-cache: Error from cloudfront và body là trang lỗi nginx. Các bằng chứng này chỉ ra rằng CloudFront/distribution hoặc origin không phục vụ nội dung hợp lệ cho hostname này — đây là dấu hiệu potential subdomain takeover (tiềm ẩn). Bài viết này trình bày quy trình kiểm chứng an toàn (read-only), phân tích kết quả và khuyến nghị khắc phục — phù hợp để đăng blog chia sẻ kiến thức.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Subdomain Takeover on Blog cá nhân của Sonbin</title>
+    <link>http://localhost:1313/my-blog/tags/subdomain-takeover/</link>
+    <description>Recent content in Subdomain Takeover on Blog cá nhân của Sonbin</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>vi-vn</language>
+    <lastBuildDate>Thu, 18 Sep 2025 22:41:39 +0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/my-blog/tags/subdomain-takeover/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Case Study: Phát hiện dấu hiệu Subdomain Takeover — gsslink.agilebits.com → d41c4ucz81chh.cloudfront.net</title>
+      <link>http://localhost:1313/my-blog/posts/bug_hunting_s1/</link>
+      <pubDate>Thu, 18 Sep 2025 22:41:39 +0700</pubDate>
+      <guid>http://localhost:1313/my-blog/posts/bug_hunting_s1/</guid>
+      <description>&lt;hr&gt;
+&lt;h2 id=&#34;-tóm-tắt&#34;&gt;📋 Tóm tắt&lt;/h2&gt;
+&lt;p&gt;Trong lần thu thập thông tin (recon), tôi phát hiện &lt;code&gt;gsslink.agilebits.com&lt;/code&gt; là một CNAME trỏ tới &lt;code&gt;d41c4ucz81chh.cloudfront.net&lt;/code&gt;. Khi truy vấn HTTPS, server trả HTTP/2 404 với header &lt;code&gt;x-cache: Error from cloudfront&lt;/code&gt; và body là trang lỗi nginx.&lt;/p&gt;
+&lt;p&gt;Các bằng chứng này chỉ ra rằng CloudFront distribution hoặc origin không phục vụ nội dung hợp lệ cho hostname này — đây là dấu hiệu &lt;strong&gt;potential subdomain takeover&lt;/strong&gt; (tiềm ẩn).&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
